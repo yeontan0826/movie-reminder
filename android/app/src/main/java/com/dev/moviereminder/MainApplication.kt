@@ -1,4 +1,4 @@
-package com.movie_reminder
+package com.dev.moviereminder
 
 import android.app.Application
 import com.facebook.react.PackageList
