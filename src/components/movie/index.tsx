@@ -1,7 +1,11 @@
 import styled from 'styled-components/native';
 import Colors from 'open-color';
+import { useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackNavigation } from '../../navigations/rootStack/types';
 
 interface MovieProps {
+  id: number;
   title: string;
   originalTitle: string;
   releaseDate: string;
@@ -10,18 +14,29 @@ interface MovieProps {
 }
 
 const Movie = ({
+  id,
   title,
   originalTitle,
   releaseDate,
   overview,
   posterUrl,
 }: MovieProps): JSX.Element => {
+  const { navigate } = useNavigation<RootStackNavigation<'MoviesScreen'>>();
+
+  const onPress = useCallback(() => {
+    navigate('MovieScreen', { id });
+  }, [id, navigate]);
+
   return (
-    <Container>
+    <Container onPress={onPress}>
       <Poster source={{ uri: posterUrl }} />
       <InfoContainer>
-        <Title>{title}</Title>
-        <OriginalTitle>{originalTitle}</OriginalTitle>
+        <Title numberOfLines={1} ellipsizeMode="tail">
+          {title}
+        </Title>
+        <OriginalTitle numberOfLines={1} ellipsizeMode="tail">
+          {originalTitle}
+        </OriginalTitle>
         <ReleaseDate>{releaseDate}</ReleaseDate>
         <Overview numberOfLines={4} ellipsizeMode="tail">
           {overview}
@@ -33,7 +48,7 @@ const Movie = ({
 
 export default Movie;
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   flex-direction: row;
   padding: 12px;
   border-radius: 8px;

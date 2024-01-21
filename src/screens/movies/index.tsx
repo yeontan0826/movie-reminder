@@ -1,19 +1,17 @@
-import { FlatList, RefreshControl, StatusBar } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import styled from 'styled-components/native';
+import { FlatList, RefreshControl } from 'react-native';
 import Colors from 'open-color';
 
 import useMovies from '../../hooks/useMovies';
 import Movie from '../../components/movie';
 import Separator from '../../components/separator';
 import Loading from '../../components/loading';
+import Screen from '../../components/screen';
 
 const MoviesScreen = (): JSX.Element => {
   const { movies, isLoading, loadMore, refresh } = useMovies();
 
   return (
-    <Container>
-      <StatusBar barStyle={'light-content'} backgroundColor={Colors.black} />
+    <Screen headerVisible={false}>
       {isLoading ? (
         <Loading />
       ) : (
@@ -33,13 +31,8 @@ const MoviesScreen = (): JSX.Element => {
           }
         />
       )}
-    </Container>
+    </Screen>
   );
 };
 
 export default MoviesScreen;
-
-const Container = styled(SafeAreaView)`
-  flex: 1;
-  background-color: ${Colors.black};
-`;
