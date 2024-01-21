@@ -12,6 +12,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		602B87602B5D9D8D0074C6E6 /* CalendarModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602B875F2B5D9D8D0074C6E6 /* CalendarModule.swift */; };
+		602B87622B5D9DAB0074C6E6 /* CalendarModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 602B87612B5D9DAB0074C6E6 /* CalendarModuleBridge.m */; };
 		60EE27AE2B5D865900061A19 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60EE279B2B5D865900061A19 /* Fontisto.ttf */; };
 		60EE27AF2B5D865900061A19 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60EE279C2B5D865900061A19 /* Octicons.ttf */; };
 		60EE27B02B5D865900061A19 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60EE279D2B5D865900061A19 /* Feather.ttf */; };
@@ -60,6 +62,9 @@
 		5709B34CF0A7D63546082F79 /* Pods-movie_reminder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movie_reminder.release.xcconfig"; path = "Target Support Files/Pods-movie_reminder/Pods-movie_reminder.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-movie_reminder-movie_reminderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movie_reminder-movie_reminderTests.debug.xcconfig"; path = "Target Support Files/Pods-movie_reminder-movie_reminderTests/Pods-movie_reminder-movie_reminderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-movie_reminder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-movie_reminder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		602B875E2B5D9D8D0074C6E6 /* movie_reminder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "movie_reminder-Bridging-Header.h"; sourceTree = "<group>"; };
+		602B875F2B5D9D8D0074C6E6 /* CalendarModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModule.swift; sourceTree = "<group>"; };
+		602B87612B5D9DAB0074C6E6 /* CalendarModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarModuleBridge.m; sourceTree = "<group>"; };
 		60EE279B2B5D865900061A19 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		60EE279C2B5D865900061A19 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		60EE279D2B5D865900061A19 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -131,6 +136,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				602B875F2B5D9D8D0074C6E6 /* CalendarModule.swift */,
+				602B875E2B5D9D8D0074C6E6 /* movie_reminder-Bridging-Header.h */,
+				602B87612B5D9DAB0074C6E6 /* CalendarModuleBridge.m */,
 			);
 			name = movie_reminder;
 			sourceTree = "<group>";
@@ -272,7 +280,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1520;
 					};
 				};
 			};
@@ -477,7 +485,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602B87602B5D9D8D0074C6E6 /* CalendarModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				602B87622B5D9DAB0074C6E6 /* CalendarModuleBridge.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-movie_reminder-movie_reminderTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -524,6 +535,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-movie_reminder-movie_reminderTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = movie_reminderTests/Info.plist;
@@ -565,6 +577,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.moviereminder;
 				PRODUCT_NAME = movie_reminder;
+				SWIFT_OBJC_BRIDGING_HEADER = "movie_reminder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -591,6 +604,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.moviereminder;
 				PRODUCT_NAME = movie_reminder;
+				SWIFT_OBJC_BRIDGING_HEADER = "movie_reminder-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
