@@ -1,8 +1,9 @@
 import { Fragment, useCallback } from 'react';
-import { FlatList, ScrollView } from 'react-native';
+import { Alert, FlatList, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import Colors from 'open-color';
+import moment from 'moment';
 
 import { RootStackRoute } from '../../navigations/rootStack/types';
 import Screen from '../../components/screen';
@@ -12,6 +13,7 @@ import MovieSection from '../../components/movieSection';
 import MoviePeople from '../../components/moviePeople';
 import Separator from '../../components/separator';
 import YoutubeVideo from '../../components/youtubeVideo';
+import CalendarModule from '../../modules/calendarModule';
 
 const MovieScreen = (): JSX.Element => {
   const {
@@ -39,6 +41,24 @@ const MovieScreen = (): JSX.Element => {
     const director = crews.find(crew => crew.job === 'Director');
     const youtubeVideos = videos.filter(video => video.site === 'YouTube');
 
+    /**
+     * 캘린더에 해당 영화 추가
+     * 내용: 영화제목
+     * 날짜: 개봉 날짜
+     */
+    const onPressAddToCalendar = async () => {
+      try {
+        await CalendarModule.createCalendarEvent(
+          moment(releaseDate).valueOf() / 1000,
+          title,
+        );
+
+        Alert.alert('캘린더 등록이 완료되었습니다');
+      } catch (error: any) {
+        Alert.alert(error.message);
+      }
+    };
+
     return (
       <ScrollView contentContainerStyle={{ padding: 20 }}>
         <TitleSection>
@@ -54,10 +74,15 @@ const MovieScreen = (): JSX.Element => {
             <ReleaseDate>{releaseDate}</ReleaseDate>
           </InfoContainer>
         </TitleSection>
+        <AddToCalendarButton onPress={onPressAddToCalendar}>
+          <AddToCalendarButtonLabel>캘린더에 추가하기</AddToCalendarButtonLabel>
+        </AddToCalendarButton>
         {/* 소개 */}
-        <MovieSection title="소개">
-          <Overview>{overview}</Overview>
-        </MovieSection>
+        {overview.length !== 0 && (
+          <MovieSection title="소개">
+            <Overview>{overview}</Overview>
+          </MovieSection>
+        )}
         {/* 감독 */}
         {director !== undefined && (
           <MovieSection title="감독">
@@ -143,4 +168,18 @@ const ReleaseDate = styled.Text`
 const Overview = styled.Text`
   line-height: 22px;
   color: ${Colors.white};
+`;
+
+const AddToCalendarButton = styled.TouchableOpacity`
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-radius: 8px;
+  background-color: ${Colors.white};
+`;
+
+const AddToCalendarButtonLabel = styled.Text`
+  font-size: 16px;
+  color: ${Colors.black};
 `;
