@@ -10,6 +10,8 @@ import notifee, {
 } from '@notifee/react-native';
 import moment from 'moment';
 
+const MAX_REMINDER_NUM_FOR_FREE = 2;
+
 const useReminder = () => {
   const [channelId, setChannelId] = useState<string | null>(null); // reminder 채널
   const [reminders, setReminders] = useState<TriggerNotification[]>([]); // reminder 목록
@@ -39,6 +41,11 @@ const useReminder = () => {
   const loadReminders = useCallback(async () => {
     const notifications = await notifee.getTriggerNotifications();
     setReminders(notifications);
+  }, []);
+
+  const canAddReminder = useCallback(async () => {
+    const triggeredNotifications = await notifee.getTriggerNotifications();
+    return triggeredNotifications.length < MAX_REMINDER_NUM_FOR_FREE;
   }, []);
 
   /**
@@ -122,6 +129,7 @@ const useReminder = () => {
     reminders,
     removeReminder,
     hasReminder,
+    canAddReminder,
   };
 };
 

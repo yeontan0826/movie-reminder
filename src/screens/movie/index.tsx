@@ -1,4 +1,4 @@
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useRef } from 'react';
 import { Alert, FlatList, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
@@ -15,6 +15,7 @@ import MoviePeople from '../../components/moviePeople';
 import Separator from '../../components/separator';
 import YoutubeVideo from '../../components/youtubeVideo';
 import CalendarModule from '../../modules/calendarModule';
+import RewardAd, { RewardAdRef } from '../../components/rewardAd';
 
 const MovieScreen = (): JSX.Element => {
   const {
@@ -22,7 +23,9 @@ const MovieScreen = (): JSX.Element => {
   } = useRoute<RootStackRoute<'MovieScreen'>>();
 
   const { movie, isLoading } = useMovie({ id });
-  const { addReminder, hasReminder, removeReminder } = useReminder();
+  const { addReminder, hasReminder, removeReminder, canAddReminder } =
+    useReminder();
+  const rewardRef = useRef<RewardAdRef>(null);
 
   const renderMovie = useCallback<() => JSX.Element>(() => {
     if (movie === undefined) {
@@ -65,11 +68,33 @@ const MovieScreen = (): JSX.Element => {
      * 알림 추가하기
      */
     const onPressAddReminder = async () => {
-      try {
-        await addReminder(id, releaseDate, title);
-        Alert.alert('알림 등록이 완료되었습니다');
-      } catch (error: any) {
-        Alert.alert(error.message);
+      const addReminderHandler = async () => {
+        try {
+          await addReminder(id, releaseDate, title);
+          Alert.alert('알림 등록이 완료되었습니다');
+        } catch (error: any) {
+          Alert.alert(error.message);
+        }
+      };
+
+      if (await canAddReminder()) {
+        addReminderHandler();
+      } else {
+        Alert.alert('광고를 보고 알림을 등록하시겠습니까?', undefined, [
+          { text: '취소' },
+          {
+            text: '확인',
+            onPress: () => {
+              rewardRef.current?.show({
+                onRewarded: rewarded => {
+                  if (rewarded) {
+                    addReminderHandler();
+                  }
+                },
+              });
+            },
+          },
+        ]);
       }
     };
 
@@ -158,9 +183,14 @@ const MovieScreen = (): JSX.Element => {
         )}
       </ScrollView>
     );
-  }, [addReminder, hasReminder, id, movie, removeReminder]);
+  }, [addReminder, canAddReminder, hasReminder, id, movie, removeReminder]);
 
-  return <Screen>{isLoading ? <Loading /> : renderMovie()}</Screen>;
+  return (
+    <Screen>
+      {isLoading ? <Loading /> : renderMovie()}
+      <RewardAd ref={rewardRef} />
+    </Screen>
+  );
 };
 
 export default MovieScreen;

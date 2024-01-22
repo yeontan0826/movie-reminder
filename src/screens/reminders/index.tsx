@@ -14,6 +14,7 @@ const RemindersScreen = (): JSX.Element => {
   return (
     <Screen>
       <FlatList
+        contentContainerStyle={{ padding: 20 }}
         data={reminders}
         renderItem={({ item: reminder }) => (
           <Container>
