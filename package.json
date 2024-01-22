@@ -1,6 +1,6 @@
 {
   "name": "movie_reminder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -8,7 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "code-push-staging-ios": "appcenter codepush release-react -a yeontan0826/Movie-Reminder-1 -d Staging",
+    "code-push-staging-android": "appcenter codepush release-react -a yeontan0826/Movie-Reminder -d Staging"
   },
   "dependencies": {
     "@notifee/react-native": "^7.8.2",
