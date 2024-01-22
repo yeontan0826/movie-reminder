@@ -6,8 +6,9 @@ import Colors from 'open-color';
 import moment from 'moment';
 
 import { RootStackRoute } from '../../navigations/rootStack/types';
-import Screen from '../../components/screen';
 import useMovie from '../../hooks/useMovie';
+import useReminder from '../../hooks/useReminder';
+import Screen from '../../components/screen';
 import Loading from '../../components/loading';
 import MovieSection from '../../components/movieSection';
 import MoviePeople from '../../components/moviePeople';
@@ -21,6 +22,7 @@ const MovieScreen = (): JSX.Element => {
   } = useRoute<RootStackRoute<'MovieScreen'>>();
 
   const { movie, isLoading } = useMovie({ id });
+  const { addReminder, hasReminder, removeReminder } = useReminder();
 
   const renderMovie = useCallback<() => JSX.Element>(() => {
     if (movie === undefined) {
@@ -59,6 +61,30 @@ const MovieScreen = (): JSX.Element => {
       }
     };
 
+    /**
+     * 알림 추가하기
+     */
+    const onPressAddReminder = async () => {
+      try {
+        await addReminder(id, releaseDate, title);
+        Alert.alert('알림 등록이 완료되었습니다');
+      } catch (error: any) {
+        Alert.alert(error.message);
+      }
+    };
+
+    /**
+     * 알림 취소하기
+     */
+    const onPressRemoveReminder = async () => {
+      try {
+        await removeReminder(String(id));
+        Alert.alert('알림이 취소되었습니다');
+      } catch (error: any) {
+        Alert.alert(error.message);
+      }
+    };
+
     return (
       <ScrollView contentContainerStyle={{ padding: 20 }}>
         <TitleSection>
@@ -74,8 +100,18 @@ const MovieScreen = (): JSX.Element => {
             <ReleaseDate>{releaseDate}</ReleaseDate>
           </InfoContainer>
         </TitleSection>
+        {/* 캘린더에 추가 */}
         <AddToCalendarButton onPress={onPressAddToCalendar}>
           <AddToCalendarButtonLabel>캘린더에 추가하기</AddToCalendarButtonLabel>
+        </AddToCalendarButton>
+        {/* 알림 추가/제거 */}
+        <AddToCalendarButton
+          onPress={
+            hasReminder(String(id)) ? onPressRemoveReminder : onPressAddReminder
+          }>
+          <AddToCalendarButtonLabel>
+            알림 {hasReminder(String(id)) ? '취소' : '설정'}하기
+          </AddToCalendarButtonLabel>
         </AddToCalendarButton>
         {/* 소개 */}
         {overview.length !== 0 && (
@@ -122,7 +158,7 @@ const MovieScreen = (): JSX.Element => {
         )}
       </ScrollView>
     );
-  }, [movie]);
+  }, [addReminder, hasReminder, id, movie, removeReminder]);
 
   return <Screen>{isLoading ? <Loading /> : renderMovie()}</Screen>;
 };

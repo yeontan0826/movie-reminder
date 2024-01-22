@@ -10,12 +10,14 @@ interface ScreenProps {
   title?: string;
   children?: React.ReactNode;
   headerVisible?: boolean;
+  renderRightComponent?: () => JSX.Element;
 }
 
 const Screen = ({
   title,
   children,
   headerVisible = true,
+  renderRightComponent,
 }: ScreenProps): JSX.Element => {
   const { goBack, canGoBack } = useNavigation();
 
@@ -38,7 +40,9 @@ const Screen = ({
           <HeaderCenter>
             <HeaderTitle>{title}</HeaderTitle>
           </HeaderCenter>
-          <HeaderRight />
+          <HeaderRight>
+            {renderRightComponent && renderRightComponent()}
+          </HeaderRight>
         </Header>
       )}
       <Body>{children}</Body>

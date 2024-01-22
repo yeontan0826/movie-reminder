@@ -6,6 +6,7 @@ export type RootStackParamList = {
   MovieScreen: {
     id: number;
   };
+  RemindersScreen: undefined;
 };
 
 export type RootStackNavigation<RouteName extends keyof RootStackParamList> =
