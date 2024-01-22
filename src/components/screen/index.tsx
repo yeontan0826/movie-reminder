@@ -15,6 +15,7 @@ interface ScreenProps {
   title?: string;
   children?: React.ReactNode;
   headerVisible?: boolean;
+  renderLeftComponent?: () => JSX.Element;
   renderRightComponent?: () => JSX.Element;
 }
 
@@ -22,6 +23,7 @@ const Screen = ({
   title,
   children,
   headerVisible = true,
+  renderLeftComponent,
   renderRightComponent,
 }: ScreenProps): JSX.Element => {
   const { navigate } =
@@ -46,6 +48,7 @@ const Screen = ({
                 <BackButtonIcon name="arrow-back" />
               </TouchableOpacity>
             )}
+            {renderLeftComponent && renderLeftComponent()}
           </HeaderLeft>
           <HeaderCenter>
             <HeaderTitle>{title}</HeaderTitle>
