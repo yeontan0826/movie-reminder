@@ -7,6 +7,7 @@ export type RootStackParamList = {
     id: number;
   };
   RemindersScreen: undefined;
+  PurchaseScreen: undefined;
 };
 
 export type RootStackNavigation<RouteName extends keyof RootStackParamList> =

@@ -1947,6 +1947,11 @@
   dependencies:
     nanoid "^3.1.23"
 
+"@revenuecat/purchases-typescript-internal@8.11.1":
+  version "8.11.1"
+  resolved "https://registry.yarnpkg.com/@revenuecat/purchases-typescript-internal/-/purchases-typescript-internal-8.11.1.tgz#e196afb9b873a206d5eb5217b1fd3e71addd4e12"
+  integrity sha512-njw0sX48rrtzW1Sg/cmF2wzJ2jqMhOMnBQdzYrk7k+4hGTI4BFUlqgAl8TorP7PckdKfrVBbHaGeqa5oBBSpOg==
+
 "@sideway/address@^4.1.4":
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.4.tgz#03dccebc6ea47fdc226f7d3d1ad512955d4783f0"
@@ -5786,6 +5791,13 @@ react-native-google-mobile-ads@^12.10.0:
   dependencies:
     "@iabtcf/core" "^1.5.3"
     use-deep-compare-effect "^1.8.1"
+
+react-native-purchases@^7.16.0:
+  version "7.16.0"
+  resolved "https://registry.yarnpkg.com/react-native-purchases/-/react-native-purchases-7.16.0.tgz#e775a6cd5e6f70399e2a1efd2c51345d7cad80eb"
+  integrity sha512-Ikkel/MqyvHiGuiJUSjBQdovGeMlXzTbFLz81iFnfgtlbImatKEwUO5YYS2XdMJEZIoRgXHPINNyC+37grcCUA==
+  dependencies:
+    "@revenuecat/purchases-typescript-internal" "8.11.1"
 
 react-native-safe-area-context@^4.8.2:
   version "4.8.2"

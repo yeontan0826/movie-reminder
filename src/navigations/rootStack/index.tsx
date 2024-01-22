@@ -4,6 +4,7 @@ import { RootStackParamList } from './types';
 import MoviesScreen from '../../screens/movies';
 import MovieScreen from '../../screens/movie';
 import RemindersScreen from '../../screens/reminders';
+import PurchaseScreen from '../../screens/purchase';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -15,6 +16,7 @@ const RootStackNavigation = (): JSX.Element => {
       <Stack.Screen name="MoviesScreen" component={MoviesScreen} />
       <Stack.Screen name="MovieScreen" component={MovieScreen} />
       <Stack.Screen name="RemindersScreen" component={RemindersScreen} />
+      <Stack.Screen name="PurchaseScreen" component={PurchaseScreen} />
     </Stack.Navigator>
   );
 };

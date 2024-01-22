@@ -117,6 +117,9 @@ PODS:
   - nanopb/encode (2.30909.1)
   - OpenSSL-Universal (1.1.1100)
   - PromisesObjC (2.3.1)
+  - PurchasesHybridCommon (8.11.1):
+    - RevenueCat (= 4.32.0)
+    - RevenueCatUI (= 4.32.0)
   - RCT-Folly (2022.05.16.00):
     - boost
     - DoubleConversion
@@ -1123,6 +1126,9 @@ PODS:
     - React-jsi (= 0.73.2)
     - React-logger (= 0.73.2)
     - React-perflogger (= 0.73.2)
+  - RevenueCat (4.32.0)
+  - RevenueCatUI (4.32.0):
+    - RevenueCat (= 4.32.0)
   - RNGoogleMobileAds (12.10.0):
     - glog
     - Google-Mobile-Ads-SDK (= 10.14.0)
@@ -1133,6 +1139,9 @@ PODS:
     - React-Core
     - RNNotifee/NotifeeCore (= 7.8.2)
   - RNNotifee/NotifeeCore (7.8.2):
+    - React-Core
+  - RNPurchases (7.16.0):
+    - PurchasesHybridCommon (= 8.11.1)
     - React-Core
   - RNScreens (3.29.0):
     - glog
@@ -1215,6 +1224,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNGoogleMobileAds (from `../node_modules/react-native-google-mobile-ads`)
   - "RNNotifee (from `../node_modules/@notifee/react-native`)"
+  - RNPurchases (from `../node_modules/react-native-purchases`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1238,6 +1248,9 @@ SPEC REPOS:
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
+    - PurchasesHybridCommon
+    - RevenueCat
+    - RevenueCatUI
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1339,6 +1352,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-google-mobile-ads"
   RNNotifee:
     :path: "../node_modules/@notifee/react-native"
+  RNPurchases:
+    :path: "../node_modules/react-native-purchases"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -1368,6 +1383,7 @@ SPEC CHECKSUMS:
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
+  PurchasesHybridCommon: db0f4063a1e77fd255318c4a2f05d26eff6f150a
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
   RCTRequired: 9b1e7e262745fb671e33c51c1078d093bd30e322
   RCTTypeSafety: a759e3b086eccf3e2cbf2493d22f28e082f958e6
@@ -1410,8 +1426,11 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 6517c0cdfae3ea29b599759e069ae97746163248
   React-utils: f5bc61e7ea3325c0732ae2d755f4441940163b85
   ReactCommon: a42e89b49d88c3890dfb6fd98a33ac80d555be19
+  RevenueCat: 2d99a5ebabd33955c3a38dfdfa9d3efe77c5db0c
+  RevenueCatUI: fa6b619083afb967facc20ecdc7ae53a4c512d10
   RNGoogleMobileAds: 1cba1169f0748699cbc2382eb8766bd76943ab75
   RNNotifee: 8e2d3df3f0e9ce8f5d1fe4c967431138190b6175
+  RNPurchases: 1730c1765c65e32d4c33cd3262019a7fd1779cd0
   RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 13c8ef87792450193e117976337b8527b49e8c03

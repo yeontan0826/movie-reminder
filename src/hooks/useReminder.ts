@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import notifee, {
   AndroidImportance,
@@ -9,12 +9,14 @@ import notifee, {
   TriggerType,
 } from '@notifee/react-native';
 import moment from 'moment';
+import SubscriptionContext from '../components/context/subscription';
 
 const MAX_REMINDER_NUM_FOR_FREE = 2;
 
 const useReminder = () => {
   const [channelId, setChannelId] = useState<string | null>(null); // reminder 채널
   const [reminders, setReminders] = useState<TriggerNotification[]>([]); // reminder 목록
+  const { subscribed } = useContext(SubscriptionContext);
 
   /**
    * Only for Android
@@ -45,8 +47,10 @@ const useReminder = () => {
 
   const canAddReminder = useCallback(async () => {
     const triggeredNotifications = await notifee.getTriggerNotifications();
-    return triggeredNotifications.length < MAX_REMINDER_NUM_FOR_FREE;
-  }, []);
+    return (
+      subscribed || triggeredNotifications.length < MAX_REMINDER_NUM_FOR_FREE
+    );
+  }, [subscribed]);
 
   /**
    * 알림 추가
