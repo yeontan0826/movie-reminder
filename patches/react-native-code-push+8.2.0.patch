@@ -1,0 +1,17 @@
+diff --git a/node_modules/react-native-code-push/android/codepush.gradle b/node_modules/react-native-code-push/android/codepush.gradle
+index f701564..c916ded 100644
+--- a/node_modules/react-native-code-push/android/codepush.gradle
++++ b/node_modules/react-native-code-push/android/codepush.gradle
+@@ -60,8 +60,10 @@ gradle.projectsEvaluated {
+             jsBundleDir = reactBundleTask.property('jsBundleDir').asFile.get()
+             resourcesDir = reactBundleTask.property('resourcesDir').asFile.get()
+             
+-            new File(jsBundleDir).mkdirs()
+-            new File(resourcesDir).mkdirs()
++            // new File(jsBundleDir).mkdirs()
++            // new File(resourcesDir).mkdirs()
++            jsBundleDir.mkdirs()
++            resourcesDir.mkdirs()
+ 
+             jsBundleFile = file("$jsBundleDir/$bundleAssetName")
+ 

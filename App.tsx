@@ -1,6 +1,7 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import CodePush, { CodePushOptions } from 'react-native-code-push';
 
 import RootStackNavigation from './src/navigations/rootStack';
 import SubscriptionProvider from './src/components/provider/subscription';
@@ -21,4 +22,8 @@ const App = (): JSX.Element => {
   );
 };
 
-export default App;
+const codePushOptions: CodePushOptions = {
+  checkFrequency: CodePush.CheckFrequency.MANUAL,
+};
+
+export default CodePush(codePushOptions)(App);
