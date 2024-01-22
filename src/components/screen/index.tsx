@@ -6,6 +6,8 @@ import styled from 'styled-components/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Colors from 'open-color';
 
+import ScreenBannerAd from '../screenBannerAd';
+
 interface ScreenProps {
   title?: string;
   children?: React.ReactNode;
@@ -28,6 +30,7 @@ const Screen = ({
   return (
     <Container>
       <StatusBar barStyle={'light-content'} backgroundColor={Colors.black} />
+
       {headerVisible && (
         <Header>
           <HeaderLeft>
@@ -45,6 +48,7 @@ const Screen = ({
           </HeaderRight>
         </Header>
       )}
+      <ScreenBannerAd />
       <Body>{children}</Body>
     </Container>
   );
