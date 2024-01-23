@@ -1,0 +1,35 @@
+name: moviereminder-ios-cd
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'ios/**'
+jobs:
+  moviereminder-deploy-ios:
+    name: Deploy iOS Update
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Package
+        run: yarn install --frozen-lockfile
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3' # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Install pod dependencies
+        run: cd ios && pod install
+      - name: Deploy beta
+        run: cd ios && bundle exec fastlane send_result
+      # - name: Generate appstore connect keyfile
+      #   run: mkdir -p ./ios/fastlane/key && echo $APPSTORE_CONNECT_KEYFILE | base64 -d > ./ios/fastlane/key/AuthKey.p8
+      #   env:
+      #     APPSTORE_CONNECT_KEYFILE: ${{ secrets.APPSTORE_CONNECT_KEYFILE }}
+      # - name: Deploy beta on appstore
+      #   run: cd ios && bundle exec fastlane send_result
+      #   env:
+      #     MATH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATH_GIT_BASIC_AUTHORIZATION }}
+      #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

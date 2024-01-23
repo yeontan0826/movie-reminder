@@ -23,7 +23,7 @@ platform :ios do
     js_version = sh("yarn get-version-number-js").split("\n")[2]
     slack(
       message: "앱이 배포되었습니다🚀",
-      slack_url: "https://hooks.slack.com/services/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",
+      slack_url: ENV["SLACK_URL"],
       payload: {
         "iOS version" => version + " " + "(" + build + ")",
         "JS version" => js_version
@@ -33,7 +33,7 @@ platform :ios do
 
   desc "Push a new release build to the App store"
   lane :release do
-    match(type: "appstore", git_url: "git_url")
+    match(type: "appstore", git_url: ENV["MATH_GIT_BASIC_AUTHORIZATION"])
     build_app(workspace: "movie_reminder.xcworkspace", scheme: "movie_reminder", configuration: "Release")
     upload_to_app_store(
       submit_for_review: false,
