@@ -8,7 +8,7 @@ platform :android do
     js_version = sh("yarn get-version-number-js").split("\n")[2]
     slack(
       message: "앱이 배포되었습니다🚀",
-      slack_url: "https://hooks.slack.com/services/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",
+      slack_url: ENV["SLACK_URL"],
       payload: {
         "Android version" => version + " " + "(" + build + ")",
         "JS version" => js_version

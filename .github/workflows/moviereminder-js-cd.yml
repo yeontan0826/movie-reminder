@@ -10,8 +10,8 @@ jobs:
     name: Deploy Codepush Update
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Install Package
@@ -19,7 +19,7 @@ jobs:
       - name: Login AppCenter
         run: ./node_modules/.bin/appcenter login --token $APPCENTER_TOKEN
         env:
-          APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN}}
+          APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN }}
       - name: Deploy codepush update (iOS)
         run: yarn code-push-prod-ios
       - name: Deploy codepush update (Android)
