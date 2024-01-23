@@ -1,27 +1,46 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
 default_platform(:ios)
 
 platform :ios do
+  # before_all do
+  #   if FastlaneCore::Helper.is_ci?
+  #     setup_ci() # Use temporal keychain on CI
+  #   end
+
+  #   app_store_connect_api_key(
+  #     key_id: "key_id",
+  #     issuer_id: "issuer_id",
+  #     # key_content: ENV["APP_STORE_CONNECT_API_KEY_CONTENT"],
+  #     key_filepath: "key_filepath",
+  #     duration: 1200, # optional (maximum 1200)
+  #     in_house: false, # optional but may be required if using match/sigh // Is App Store or Enterprise (in house) team? App Store Connect API cannot determine this on its own (yet)
+  #   )
+  # end
+
+  desc "Send result to slack"
+  lane :send_result do
+    version = get_version_number
+    build = get_build_number
+    js_version = sh("yarn get-version-number-js").split("\n")[2]
+    slack(
+      message: "앱이 배포되었습니다🚀",
+      slack_url: "https://hooks.slack.com/services/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",
+      payload: {
+        "iOS version" => version + " " + "(" + build + ")",
+        "JS version" => js_version
+      }
+    )
+  end
+
   desc "Push a new release build to the App store"
   lane :release do
+    match(type: "appstore", git_url: "git_url")
     build_app(workspace: "movie_reminder.xcworkspace", scheme: "movie_reminder", configuration: "Release")
     upload_to_app_store(
       submit_for_review: false,
-      overwrite_screenshots: true
+      overwrite_screenshots: true,
+      force: true,
+      precheck_include_app_purchases: false
     )
+    send_result
   end
 end

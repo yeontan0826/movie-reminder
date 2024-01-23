@@ -10,7 +10,8 @@
     "test": "jest",
     "postinstall": "patch-package",
     "code-push-staging-ios": "appcenter codepush release-react -a yeontan0826/Movie-Reminder-1 -d Staging",
-    "code-push-staging-android": "appcenter codepush release-react -a yeontan0826/Movie-Reminder -d Staging"
+    "code-push-staging-android": "appcenter codepush release-react -a yeontan0826/Movie-Reminder -d Staging",
+    "get-version-number-js": "node ./scripts/get-version-number-js.js"
   },
   "dependencies": {
     "@notifee/react-native": "^7.8.2",
