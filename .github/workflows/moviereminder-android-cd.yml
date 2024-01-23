@@ -1,0 +1,34 @@
+name: moviereminder-android-cd
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - './android/**'
+jobs:
+  moviereminder-deploy-android:
+    name: Deploy Android Update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Package
+        run: yarn install --frozen-lockfile
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3' # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Generate keystore
+        run: echo $ANDROID_RELEASE_KEYSTORE | base64 -d > ./android/app/my-upload-key.keystore
+        env:
+          ANDROID_RELEASE_KEYSTORE: ${{ secrets.ANDROID_RELEASE_KEYSTORE }}
+      - name: Generate playstore service account
+        run: mkdir -p android/key && echo $PLAYSTORE_SERVICE_ACCOUNT | base64 > ./android/key/movie-reminder-412013-8557f2d58067.json
+        env:
+          PLAYSTORE_SERVICE_ACCOUNT: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
+      - name: Deploy beta on playstore
+        run: cd android && bundle exec fastlane beta
+        env:
+          SLACK_URL: ${{ secrets.SLACK_URL }}
