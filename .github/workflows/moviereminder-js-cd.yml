@@ -1,0 +1,26 @@
+name: moviereminder-js-cd
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - '**'
+jobs:
+  moviereminder-deploy-codepush:
+    name: Deploy Codepush Update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install Package
+        run: yarn install --frozen-lockfile
+      - name: Login AppCenter
+        run: ./node_modules/.bin/appcenter login --token $APPCENTER_TOKEN
+        env:
+          APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN}}
+      - name: Deploy codepush update (iOS)
+        run: yarn code-push-prod-ios
+      - name: Deploy codepush update (Android)
+        run: yarn code-push-prod-android

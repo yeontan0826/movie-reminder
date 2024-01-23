@@ -1,6 +1,6 @@
 {
   "name": "movie_reminder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -11,6 +11,8 @@
     "postinstall": "patch-package",
     "code-push-staging-ios": "appcenter codepush release-react -a yeontan0826/Movie-Reminder-1 -d Staging",
     "code-push-staging-android": "appcenter codepush release-react -a yeontan0826/Movie-Reminder -d Staging",
+    "code-push-prod-ios": "appcenter codepush release-react -a yeontan0826/Movie-Reminder-1 -d Production",
+    "code-push-prod-android": "appcenter codepush release-react -a yeontan0826/Movie-Reminder -d Production",
     "get-version-number-js": "node ./scripts/get-version-number-js.js",
     "get-version-number-android": "node ./scripts/get-version-number-android.js ./android/app/build.gradle",
     "get-build-number-android": "node ./scripts/get-build-number-android.js ./android/app/build.gradle"
@@ -44,6 +46,7 @@
     "@types/react": "^18.2.6",
     "@types/react-native-vector-icons": "^6.4.18",
     "@types/react-test-renderer": "^18.0.0",
+    "appcenter-cli": "^2.14.0",
     "babel-jest": "^29.6.3",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8.19.0",
